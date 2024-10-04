@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+// pages/Home.jsx
+
+import React from 'react';
 import HeroSection from '../components/HeroSection';
 import Header from '../components/Header';
-class Home extends Component {
-    render() {
-        return (
-            <div className='Home'>
-                <Header />
-                <HeroSection />
-                
-            </div>
-        );
-    }
-}
+
+const Home = () => {
+  return (
+    <div>
+      <Header />
+      <HeroSection />
+    </div>
+  );
+};
 
 export default Home;

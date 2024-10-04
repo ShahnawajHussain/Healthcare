@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
+import Appointment from './pages/Appointment';
 
-
-function App() {
-    return (
-        <div className="App">
-            <Router>
-                <Routes>
-                    <Route path='/' element={<Home/>} />
-                </Routes>
-            </Router>
-        </div>
-    );
-}
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/appointment" element={<Appointment />} />
+        </Routes>
+    </Router>
+  );
+};
 
 export default App;
