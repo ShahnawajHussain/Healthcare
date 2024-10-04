@@ -10,4 +10,3 @@ Currently, two official plugins are available:
 =======
 # Health-care
 ...
->>>>>>> b88b674679bf2dc39fc740c73ed455f1aa572f6c
