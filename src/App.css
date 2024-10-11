@@ -10,9 +10,6 @@
     box-sizing: border-box;
     background-color: #f5faff;
 }
-.heading-navbar{
-    background-color: rgb(245, 250, 255);
-}
 .hero {
     display: flex;
     justify-content: space-between;
@@ -23,7 +20,7 @@
 .hero-content {
     max-width: 50%;
     margin-left: 3rem;
-    margin-top: 8rem;
+    margin-top: 5rem;
 }
 
 .hero h1 {
