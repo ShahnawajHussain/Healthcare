@@ -1,17 +1,8 @@
 import React from 'react';
 import hospital from '../assets/healthcare-building-svgrepo-com.png';
-import "../App.css"
-
+import '../style/Header.css';
 
 const Header = () => {
-
-    const [nav, setNav] = useState(false);
-
-    const openNav = () => {
-        setNav(!nav);
-      };
-
-
     return (
         <>
             {/* component */}
@@ -54,7 +45,7 @@ const Header = () => {
                         </svg>
                     </li>
                     <li>
-                        <a  className="text-sm text-blue-600 font-bold" href="#">
+                        <a className="text-sm text-blue-600 font-bold" href="#">
                             About Us
                         </a>
                     </li>
@@ -138,3 +129,5 @@ const Header = () => {
         </>
     );
 };
+
+export default Header;
