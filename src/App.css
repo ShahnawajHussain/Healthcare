@@ -1,42 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Basic styling */
-body {
+ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f5faff;
 }
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #fff;
-}
-
-.logo {
-    font-size: 1.5rem;
-    color: #0aa1dd;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-links li {
-    cursor: pointer;
-}
-
-.live-chat {
-    background-color: #0aa1dd;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-}
-
 .hero {
     display: flex;
     justify-content: space-between;
@@ -46,19 +19,22 @@ body {
 
 .hero-content {
     max-width: 50%;
+    margin-left: 3rem;
+    margin-top: 5rem;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 .hero h2 {
-    font-size: 1.2rem;
+    font-size: 2rem;
     color: red;
 }
 
 .hero p {
     margin-top: 1rem;
+    font-size: 1.5rem;
     color: #555;
 }
 
@@ -68,7 +44,7 @@ body {
     padding: 1rem;
     border: none;
     border-radius: 5px;
-    margin-top: 1.5rem;
+    margin-top: 1.8rem;
 }
 
 .stats {
@@ -85,4 +61,18 @@ body {
 .doctor-image img {
     max-width: 100%;
     height: auto;
-}
+    padding-right: 200px;
+    animation: moveUpDown 1s infinite alternate ease-in-out;
+} 
+
+
+
+  
+  @keyframes moveUpDown {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(40px);
+    }
+  }

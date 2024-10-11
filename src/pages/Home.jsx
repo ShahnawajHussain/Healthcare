@@ -1,12 +1,14 @@
 import React from 'react';
 import HeroSection from '../components/HeroSection';
 import Header from '../components/Header';
+import Info from '../components/info';
 
 const Home = () => {
   return (
     <div>
-      <Header />
+      <Header/>
       <HeroSection />
+      <Info/>
     </div>
   );
 };
