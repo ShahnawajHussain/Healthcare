@@ -1,8 +1,10 @@
 import React from 'react';
 import hospital from '../assets/healthcare-building-svgrepo-com.png';
 import '../style/Header.css';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    
     return (
         <>
             {/* component */}
@@ -45,7 +47,7 @@ const Header = () => {
                         </svg>
                     </li>
                     <li>
-                        <a className="text-sm text-blue-600 font-bold" href="#">
+                        <a className="text-sm text-gray-400 hover:text-gray-500" href="#about">
                             About Us
                         </a>
                     </li>
@@ -66,7 +68,7 @@ const Header = () => {
                         </svg>
                     </li>
                     <li>
-                        <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
+                        <a className="text-sm text-gray-400 hover:text-gray-500" href="#services">
                             Services
                         </a>
                     </li>
@@ -115,7 +117,7 @@ const Header = () => {
                 </ul>
                 <a
                     className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-                    href="#"
+                    href='/login'
                 >
                     Sign In
                 </a>

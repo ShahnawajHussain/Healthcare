@@ -10,17 +10,22 @@
     box-sizing: border-box;
     background-color: #f5faff;
 }
-.hero {
+html {
+    scroll-behavior: smooth;
+  }
+  .hero {
     display: flex;
     justify-content: space-between;
     padding: 2rem;
     background-color: #f5faff;
+    flex-wrap: wrap; /* Ensure that content wraps on small screens */
 }
 
 .hero-content {
     max-width: 50%;
     margin-left: 3rem;
-    margin-top: 5rem;
+    margin-top: 8rem;
+    margin-bottom: 4rem;
 }
 
 .hero h1 {
@@ -45,6 +50,7 @@
     border: none;
     border-radius: 5px;
     margin-top: 1.8rem;
+    cursor: pointer; /* Add cursor pointer for better UX */
 }
 
 .stats {
@@ -63,12 +69,83 @@
     height: auto;
     padding-right: 200px;
     animation: moveUpDown 1s infinite alternate ease-in-out;
-} 
+}
 
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .hero-content {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        text-align: center; /* Center align text on medium screens */
+    }
 
+    .hero {
+        padding: 1.5rem;
+        flex-direction: column; /* Stack content vertically on medium screens */
+    }
 
-  
-  @keyframes moveUpDown {
+    .doctor-image img {
+        padding-right: 0;
+        max-width: 80%; /* Reduce the image size on medium screens */
+        margin: 3rem auto; /* Center the image */
+    }
+
+    .stats {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .doctor-image img {
+        max-width: 70%; /* Further reduce image size on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        margin-top: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero h2 {
+        font-size: 1.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .book-appointment {
+        padding: 0.8rem;
+        font-size: 0.9rem; /* Adjust button font size */
+    }
+
+    .doctor-image img {
+        max-width: 60%; /* Further reduce image size for mobile screens */
+    }
+
+    .stats div h3 {
+        font-size: 1.2rem; /* Adjust stat font size for mobile */
+    }
+}
+
+@keyframes moveUpDown {
     0% {
       transform: translateY(0px);
     }
