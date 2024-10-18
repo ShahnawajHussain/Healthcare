@@ -51,11 +51,11 @@ const Login = () => {
         <div className="container a-container" id="a-container">
           <form id="a-form" className="form">
             <h2 className="form_title title">Create Account</h2>
-            {/* <div className="form__icons">
+            <div className="form__icons">
               <img className="form__icon" src={svgIcon} alt="Facebook Icon" />
               <img className="form__icon" src={svgIcon} alt="Facebook Icon" />
               <img className="form__icon" src={svgIcon} alt="Facebook Icon" />
-            </div> */}
+            </div> 
             <span className="form__span">or use email for registration</span>
             <input className="form__input" type="text" placeholder="Name" />
             <input className="form__input" type="text" placeholder="Email" />
