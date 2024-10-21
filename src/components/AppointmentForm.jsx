@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import '../style/AppointmentForm.css';
 
 const AppointmentForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    date: '',
-    gender: '',
-    appointmentdate: '',
-    time: '',
-    department:'',
-    doctor:'',
-    message: ''
-  });
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [nic, setNic] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState("");
+  const [department, setDepartment] = useState("Pediatrics");
+  const [doctorFirstName, setDoctorFirstName] = useState("");
+  const [doctorLastName, setDoctorLastName] = useState("");
+  const [address, setAddress] = useState("");
+  const [hasVisited, setHasVisited] = useState(false);
 
   const departmentsArray = [
     "Pediatrics",
@@ -27,125 +31,187 @@ const AppointmentForm = () => {
     "ENT",
   ];
 
-  const handleChange = (e,) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const [doctors, setDoctors] = useState([]);
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      const { data } = await axios.get(
+        "http://localhost:4000/api/v1/user/doctors",
+        { withCredentials: true }
+      );
+      setDoctors(data.doctors);
+      console.log(data.doctors);
+    };
+    fetchDoctors();
+  }, []);
+  const handleAppointment = async (e) => {
     e.preventDefault();
-    // You can add API call or form handling logic here
-    console.log('Appointment Submitted:', formData);
-    alert(`Appointment request sent by ${formData.name}`);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      gender: '',
-      appointmentdate: '',
-      time: '',
-      department:'',
-      doctor:'',
-      message: ''
-    });
-
-
+    try {
+      const hasVisitedBool = Boolean(hasVisited);
+      const { data } = await axios.post(
+        "http://localhost:4000/api/v1/appointment/post",
+        {
+          firstName,
+          lastName,
+          email,
+          phone,
+          nic,
+          dob,
+          gender,
+          appointment_date: appointmentDate,
+          department,
+          doctor_firstName: doctorFirstName,
+          doctor_lastName: doctorLastName,
+          hasVisited: hasVisitedBool,
+          address,
+        },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      toast.success(data.message);
+      setFirstName(""),
+        setLastName(""),
+        setEmail(""),
+        setPhone(""),
+        setNic(""),
+        setDob(""),
+        setGender(""),
+        setAppointmentDate(""),
+        setDepartment(""),
+        setDoctorFirstName(""),
+        setDoctorLastName(""),
+        setHasVisited(""),
+        setAddress("");
+    } catch (error) {
+      // toast.error(error.response.data.message);
+    }
   };
 
   return (
-    <div className="form-container">
-      <h2>Book an Appointment</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Full Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="number">Personal contact</label>
-        <input
-          type="number"
-          placeholder="Mobile Number"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-        <label htmlFor="date">date of birth</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="gender">Select Gender</label>
-        <select type="gender" id="gender" name="gender" value={formData.gender} onChange={handleChange} required >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-
-
-        <label htmlFor="appointmentdate">Appointment Date</label>
-        <input
-          type="date"
-          id="appointmentdate"
-          name="appointmentdate"
-          value={formData.appointmentdate}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="time">Preferred Time</label>
-        <input
-          type="time"
-          id="time"
-          name="time"
-          value={formData.time}
-          onChange={handleChange}
-          required
-        />
-        <div>
-          <label htmlFor="department">Select Department</label>
-          <select type="department" name="department" id="department" value={formData.department} onChange={handleChange} >
-          {departmentsArray.map((depart, index) => {
+    <>
+      <div className="container form-component appointment-form">
+        <h2>Appointment</h2>
+        <form onSubmit={handleAppointment}>
+          <div>
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Mobile Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              placeholder="NIC"
+              value={nic}
+              onChange={(e) => setNic(e.target.value)}
+            />
+            <input
+              type="date"
+              placeholder="Date of Birth"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+            />
+          </div>
+          <div>
+            <select value={gender} onChange={(e) => setGender(e.target.value)}>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <input
+              type="date"
+              placeholder="Appointment Date"
+              value={appointmentDate}
+              onChange={(e) => setAppointmentDate(e.target.value)}
+            />
+          </div>
+          <div>
+            <select
+              value={department}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+                setDoctorFirstName("");
+                setDoctorLastName("");
+              }}
+            >
+              {departmentsArray.map((depart, index) => {
                 return (
-                  <option value={depart} key={index} >
+                  <option value={depart} key={index}>
                     {depart}
                   </option>
                 );
               })}
-          </select>
-
-          <label htmlFor="doctor">Select Doctor</label>
-          <select type="name" name="doctor" id="doctor" value={formData.doctor} onChange={handleChange}></select>
-        </div>
-        <label htmlFor="message">Address</label>
-        <textarea
-          id="message"
-          name="message"
-          rows="4"
-          value={formData.message}
-          onChange={handleChange}
-        />
-
-        <button type="submit">Submit Appointment</button>
-      </form>
-    </div>
+            </select>
+            <select
+              value={`${doctorFirstName} ${doctorLastName}`}
+              onChange={(e) => {
+                const [firstName, lastName] = e.target.value.split(" ");
+                setDoctorFirstName(firstName);
+                setDoctorLastName(lastName);
+              }}
+              disabled={!department}
+            >
+              <option value="">Select Doctor</option>
+              {doctors
+                .filter((doctor) => doctor.doctorDepartment === department)
+                .map((doctor, index) => (
+                  <option
+                    value={`${doctor.firstName} ${doctor.lastName}`}
+                    key={index}
+                  >
+                    {doctor.firstName} {doctor.lastName}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <textarea
+            rows="10"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Address"
+          />
+          <div
+            style={{
+              gap: "10px",
+              justifyContent: "flex-end",
+              flexDirection: "row",
+            }}
+          >
+            <p style={{ marginBottom: 0 }}>Have you visited before?</p>
+            <input
+              type="checkbox"
+              checked={hasVisited}
+              onChange={(e) => setHasVisited(e.target.checked)}
+              style={{ flex: "none", width: "25px" }}
+            />
+          </div>
+          <button style={{ margin: "0 auto" }}>GET APPOINTMENT</button>
+        </form>
+      </div>
+    </>
   );
 };
 
